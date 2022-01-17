@@ -143,3 +143,4 @@ lowerAndGreater n list = go list 0 0
                  in if n > current then go (tail nums) lower (greater + 1)
                     else if n < current then go (tail nums) (lower + 1) greater
                     else go (tail nums) lower greater
+
