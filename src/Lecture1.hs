@@ -139,13 +139,13 @@ and lower than 6 elements (4, 5, 6, 7, 8 and 9).
 🕯 HINT: Use recursion to implement this function.
 -}
 lowerAndGreater :: Int -> [Int] -> String
-lowerAndGreater n list = go list n 0 0
+lowerAndGreater n list = go list 0 0
     where
-        go :: [Int] -> Int -> Int -> Int -> String
-        go nums num lower greater =
+        go :: [Int] -> Int -> Int -> String
+        go nums lower greater =
             if null nums
-            then show num ++ " is greater than " ++ show greater ++ " elements and lower than " ++ show lower ++ " elements"
+            then show n ++ " is greater than " ++ show greater ++ " elements and lower than " ++ show lower ++ " elements"
             else let current = head nums
-                 in if num > current then go (tail nums) num lower (greater + 1)
-                    else if num < current then go (tail nums) num (lower + 1) greater
-                    else go (tail nums) num lower greater
+                 in if n > current then go (tail nums) lower (greater + 1)
+                    else if n < current then go (tail nums) (lower + 1) greater
+                    else go (tail nums) lower greater
