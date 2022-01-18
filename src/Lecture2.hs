@@ -50,9 +50,9 @@ zero, you can stop calculating product and return 0 immediately.
 84
 -}
 lazyProduct :: [Int] -> Int
-lazyProduct [] = 0
-lazyProduct [0, _] = 0
-lazyProduct [x, y] = x * y
+lazyProduct []       = 1
+lazyProduct [0, _]   = 0
+lazyProduct [x, y]   = x * y
 lazyProduct (x : xs) = x * lazyProduct xs
 
 {- | Implement a function that duplicates every element in the list.
@@ -63,7 +63,7 @@ lazyProduct (x : xs) = x * lazyProduct xs
 "ccaabb"
 -}
 duplicate :: [a] -> [a]
-duplicate [] = []
+duplicate []       = []
 duplicate (x : xs) = [x,x] ++ duplicate xs
 
 {- | Implement function that takes index and a list and removes the
