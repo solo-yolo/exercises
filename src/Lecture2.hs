@@ -232,8 +232,9 @@ The algorithm of merge sort is the following:
 [1,2,3]
 -}
 mergeSort :: [Int] -> [Int]
-mergeSort = error "TODO"
-
+mergeSort []       = []
+mergeSort [x]      = [x]
+mergeSort (x : xs) = merge [x] (mergeSort xs)
 
 {- | Haskell is famous for being a superb language for implementing
 compilers and interpeters to other programming languages. In the next
