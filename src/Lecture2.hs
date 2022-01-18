@@ -40,7 +40,6 @@ module Lecture2
     , constantFolding
     ) where
 import Data.Char (isSpace)
-import Data.Bits (Bits(xor))
 
 {- | Implement a function that finds a product of all the numbers in
 the list. But implement a lazier version of this function: if you see
@@ -286,7 +285,21 @@ data EvalError
 It returns either a successful evaluation result or an error.
 -}
 eval :: Variables -> Expr -> Either EvalError Int
-eval = error "TODO"
+eval _ (Lit literal) = Right literal
+eval vars (Var variable) =
+  let var = lookup variable vars
+  in case var of
+    Nothing -> Left (VariableNotFound variable)
+    Just a  -> Right a
+eval vars (Add a b) =
+  let first = eval vars a
+  in case first of
+    Left e  -> Left e
+    Right f ->
+      let second = eval vars b
+      in case second of
+        Left e -> Left e
+        Right s -> Right (f + s)
 
 {- | Compilers also perform optimizations! One of the most common
 optimizations is "Constant Folding". It performs arithmetic operations
