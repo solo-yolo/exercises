@@ -40,6 +40,7 @@ module Lecture2
     , constantFolding
     ) where
 import Data.Char (isSpace)
+import Data.Bits (Bits(xor))
 
 {- | Implement a function that finds a product of all the numbers in
 the list. But implement a lazier version of this function: if you see
@@ -192,7 +193,10 @@ False
 True
 -}
 isIncreasing :: [Int] -> Bool
-isIncreasing = error "TODO"
+isIncreasing []       = True
+isIncreasing [_]      = True
+isIncreasing [x, y]   = x < y
+isIncreasing (x : xs) = x < head xs && isIncreasing xs
 
 {- | Implement a function that takes two lists, sorted in the
 increasing order, and merges them into new list, also sorted in the
@@ -205,7 +209,13 @@ verify that.
 [1,2,3,4,7]
 -}
 merge :: [Int] -> [Int] -> [Int]
-merge = error "TODO"
+merge [] [] = []
+merge x []  = x
+merge [] x  = x
+merge (x : xs) (y : ys) =
+  if x < y
+  then x : merge xs (y : ys)
+  else y : merge (x : xs) ys
 
 {- | Implement the "Merge Sort" algorithm in Haskell. The @mergeSort@
 function takes a list of numbers and returns a new list containing the
